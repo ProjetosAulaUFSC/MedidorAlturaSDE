@@ -1,16 +1,16 @@
 #ifndef __SENSORDIST__
 #define __SENSORDIST__
 
+#include <inttypes.h> 
+
 class SensorDist {
-    private:
-        float dist;
     public:
-        sd(){this.dist = 0;};
-        int calcDist(int t1, int t2);
-        void getDist();
+        uint8_t dist;
+    public:
+        SensorDist();
         void setDist(bool opt);
         void getAltura();
 };
 
-extern SensorDist SensorDist;
+extern SensorDist sD;
 #endif

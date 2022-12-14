@@ -6,7 +6,7 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "esp_spi_flash.h"
-#include "serial.h"
+#include "serial.hpp"
 #include "delay.h"
 #include <inttypes.h> 
 #include "digital.h"
@@ -21,21 +21,25 @@ void menu(){
 }
 
 void app_main(){
-	sensorDist sD();
+	delay_ms(2000);
+	SensorDist d;
 	serial.begin(9600);
 	while(1){
 		menu();
 		char opt = serial.readChar();
 		printf("Opcao: %c\n", opt);
 		switch(opt){
-			case 1:
-				sD.setPoint(false);
+			case '1':
+				printf("Caso 1");
+				//d.setDist(false);
 				break;
-			case 2:
-				sD.setPoint(true);
+			case '2':
+				printf("Caso 2");
+				//d.setDist(true);
 				break;
-			case 3:
-				sD.getAltura();
+			case '3':
+				printf("Caso 3");
+				//d.getAltura();
 				break;
 			default:
 				printf("Opcao invalida, selecione outro valor\n");
