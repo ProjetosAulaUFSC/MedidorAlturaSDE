@@ -4,12 +4,12 @@
 #include <stdio.h> 
 
 class SensorDist {
-    private:
+    public:
         int distSensor;
     public:
         SensorDist(){distSensor = 300;};
         void setDist(bool opt);
-        void getAltura();
+        void getAltura(void);
 };
 
 #endif

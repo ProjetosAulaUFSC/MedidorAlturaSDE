@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+#include <string>
 #include <time.h>
 #include <sys/time.h>
 #include "freertos/FreeRTOS.h"
@@ -13,36 +13,33 @@
 #include "sensorDist.hpp"
 
 extern "C" void app_main() ;
-void menu(){
-	printf("\n\t\t\t Menu");
-	printf("\n[1] - Ajusta set point - Manual");
-	printf("\n[2] - Ajusta set point - Automatico");
-	printf("\n[3] - Mede altura pessoal");
-}
-
 void app_main(){
-	digital.pinMode(TRIGGER_PIN, OUTPUT);
-    digital.pinMode(ECHO_PIN, INPUT);
-    digital.digitalWrite(TRIGGER_PIN, LOW);
-    digital.digitalWrite(ECHO_PIN, LOW);
+	digital.pinMode(PIN16, OUTPUT);
+    digital.pinMode(PIN5, INPUT);
+    digital.digitalWrite(PIN16, LOW);
+    digital.digitalWrite(PIN5, LOW);
 	delay_ms(2000);
-	SensorDist sensor();
+	SensorDist sensor;
 	serial.begin(9600);
 	while(1){
-		menu();
-		char opt = serial.readChar();
-		printf("Opcao: %c\n", opt);
-		switch(opt){
+		printf("\n      Menu      ");
+		printf("\n[1] - Ajusta set point - Manual");
+		printf("\n[2] - Ajusta set point - Automatico");
+		printf("\n[3] - Mede altura pessoal\n");
+		char opt[1];
+		serial.readString((uint8_t*)opt, 1);
+		switch(opt[0]){
 			case '1':
-				printf("Caso 1");
+				printf("Caso 1\n");
 				sensor.setDist(false);
 				break;
 			case '2':
-				printf("Caso 2");
+				printf("Caso 2\n");
 				sensor.setDist(true);
+				printf("Altura settada em %d cm\n", sensor.distSensor);
 				break;
 			case '3':
-				printf("Caso 3");
+				printf("Caso 3\n");
 				sensor.getAltura();
 				break;
 			default:
@@ -50,17 +47,3 @@ void app_main(){
 		}
 	}
 }
-// void app_main(){
-// 	delay_ms(2000);
-// 	serial.begin(9600);
-// 	printf("\n\nRODANDO\n\n");
-// 	int64_t t1, t2, diferenca;
-// 	while (1){
-//   	t1 = esp_timer_get_time();
-// 		delay_us(1000);  
-// 		t2 = esp_timer_get_time();
-// 		diferenca =(t2-t1);
-// 		printf("t1 = %ld t2 = %ld Diferenca vale %ld \n",(long)t1, (long)t2, (long)diferenca);
-//    		vTaskDelay(2000/portTICK_PERIOD_MS);
-//    	}
-// }

@@ -5,9 +5,10 @@
 #include "digital.h"
 #include "delay.h"
 #include "driver/gpio.h"
+#include <string>
 
-gpio_num_t TRIGGER_PIN = PIN12;
-gpio_num_t ECHO_PIN = PIN13;
+gpio_num_t TRIGGER_PIN = PIN16;
+gpio_num_t ECHO_PIN = PIN5;
 
 int calcDist(int t1, int t2){
     int dif = t2-t1;
@@ -28,15 +29,15 @@ int getDist(){
 void SensorDist::setDist(bool opt){
     if(opt) this->distSensor = getDist();
     else{
+        printf("Insira a altura em cm: \n");
         char buffer[3];
         serial.readString((uint8_t*) buffer, 3);
-        this->distSensor = stoi(buffer);
-        printf("Insira a altura em cm: %d\n", this->distSensor);
-        printf("Distancia configurada\n\n");
+        this->distSensor = std::stoi(buffer);
+        printf("Distancia configurada para %d cm\n\n", this->distSensor);
     }
 }
 
-void SensorDist::getAltura(){
+void SensorDist::getAltura(void){
     int distCalc = getDist();
     int altura = this->distSensor - distCalc;
     printf("A pessoa em questao tem %d cm de altura", altura);
