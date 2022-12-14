@@ -21,8 +21,12 @@ void menu(){
 }
 
 void app_main(){
+	digital.pinMode(TRIGGER_PIN, OUTPUT);
+    digital.pinMode(ECHO_PIN, INPUT);
+    digital.digitalWrite(TRIGGER_PIN, LOW);
+    digital.digitalWrite(ECHO_PIN, LOW);
 	delay_ms(2000);
-	SensorDist d;
+	SensorDist sensor();
 	serial.begin(9600);
 	while(1){
 		menu();
@@ -31,15 +35,15 @@ void app_main(){
 		switch(opt){
 			case '1':
 				printf("Caso 1");
-				//d.setDist(false);
+				sensor.setDist(false);
 				break;
 			case '2':
 				printf("Caso 2");
-				//d.setDist(true);
+				sensor.setDist(true);
 				break;
 			case '3':
 				printf("Caso 3");
-				//d.getAltura();
+				sensor.getAltura();
 				break;
 			default:
 				printf("Opcao invalida, selecione outro valor\n");
